@@ -4,6 +4,7 @@ import base64
 import matplotlib.pyplot as plt
 import seaborn as sns
 import numpy as np
+import streamlit.components.v1 as components
 
 
 def sidebar_comp(df):
@@ -51,17 +52,45 @@ def sidebar_comp(df):
     age_range = st.sidebar.slider("Rango de edad", min_value=min_age, max_value=max_age, value=(min_age, max_age))
     if age_range:
         df_filtered = df_filtered[df_filtered["Edad"].between(age_range[0], age_range[1])]
-        
-
     return df_filtered
 
 
-
-
-    
 def overview_comp(df):
-    st.dataframe(df)
+    st.subheader("Resultados:")
+    player, country, position, team, comp, age = st.columns([5,2.5,3,5,5,2])
     
+    with player:
+        st.markdown("<h5>Jugador</h5>", unsafe_allow_html=True)
+        for index, row in df.iterrows():
+            if st.button(row["Jugador"]):
+                with st.spinner("Cargando imagen..."):
+                    if row["Jugador"] == "Karim Benzema":
+                        with st.expander("See explanation"):
+                            st.write("asadadasdasdsdasdsdasdsdasdsdasdsdasddas")
+                            st.image("img/benzema.png")
+                    else:
+                        st.warning("Imagen no disponible")
+    with country:
+        st.markdown("<h5>Pais</h5>", unsafe_allow_html=True)
+        for index, row in df.iterrows():
+            st.button(row["Pais"], key=f'button_{index+10}')
+    with position:
+        st.markdown("<h5>Posición</h5>", unsafe_allow_html=True)
+        for index, row in df.iterrows():
+            st.button(row["Posc"], key=f'button_{index+23}')
+    with team:
+        st.markdown("<h5>Equipo</h5>", unsafe_allow_html=True)
+        for index, row in df.iterrows():
+            st.button(row["Equipo"], key=f'button_{index+55}')  
+    with comp:
+        st.markdown("<h5>Liga</h5>", unsafe_allow_html=True)
+        for index, row in df.iterrows():
+           st.button(row["Comp"], key=f'button_{index+77}')
+    with age:
+        st.markdown("<h5>Edad</h5>", unsafe_allow_html=True)
+        for index, row in df.iterrows():
+            st.button(str(row["Edad"]), key=f'button_{index+83}')
+
 ###################################################################
 def run():
     ###CARGAR DE DATOS
@@ -69,7 +98,6 @@ def run():
     #TRANSFORMACIONES DE DATOS PARA MOSTRAR
     df_players_overview = df_players_all[['Jugador', 'Pais', 'Posc', 'Equipo', 'Comp', 'Edad', 'Pie']]
     #PAGINA PRINICIPAL
-    st.title('Análisis de rendimiento y reputación de jugadores de Fútbol ')
     df_filtered = sidebar_comp(df_players_overview)
     overview_comp(df_filtered)
 run()
