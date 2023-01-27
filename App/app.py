@@ -62,14 +62,7 @@ def overview_comp(df):
     with player:
         st.markdown("<h5>Jugador</h5>", unsafe_allow_html=True)
         for index, row in df.iterrows():
-            if st.button(row["Jugador"]):
-                with st.spinner("Cargando imagen..."):
-                    if row["Jugador"] == "Karim Benzema":
-                        with st.expander("See explanation"):
-                            st.write("asadadasdasdsdasdsdasdsdasdsdasdsdasddas")
-                            st.image("img/benzema.png")
-                    else:
-                        st.warning("Imagen no disponible")
+            st.button(row["Jugador"], key=f'button_{index}')
     with country:
         st.markdown("<h5>Pais</h5>", unsafe_allow_html=True)
         for index, row in df.iterrows():
