@@ -54,19 +54,28 @@ def sidebar_comp(df):
         df_filtered = df_filtered[df_filtered["Edad"].between(age_range[0], age_range[1])]
     return df_filtered
 
+def resume_comp(player_selected):
+    st.image(f'img/players/position/{player_selected}.png', width=600)
+    st.image(f'img/players/heatmap/{player_selected}.png', width=600)
+    
+    ##Posicion
 
 def overview_comp(df):
     st.subheader("Resultados:")
     player, country, position, team, comp, age = st.columns([5,2.5,3,5,5,2])
+    flag=False
+    player_selected = None
     
     with player:
         st.markdown("<h5>Jugador</h5>", unsafe_allow_html=True)
         for index, row in df.iterrows():
-            st.button(row["Jugador"], key=f'button_{index}')
+            if st.button(row["Jugador"], key=f'button_{index}'):
+                flag = True
+                player_selected = row["Jugador"]            
     with country:
         st.markdown("<h5>Pais</h5>", unsafe_allow_html=True)
         for index, row in df.iterrows():
-            st.button(row["Pais"], key=f'button_{index+10}')
+            st.button(row["Pais"], key=f'button_{index+10}')      
     with position:
         st.markdown("<h5>Posición</h5>", unsafe_allow_html=True)
         for index, row in df.iterrows():
@@ -83,7 +92,31 @@ def overview_comp(df):
         st.markdown("<h5>Edad</h5>", unsafe_allow_html=True)
         for index, row in df.iterrows():
             st.button(str(row["Edad"]), key=f'button_{index+83}')
-
+    if flag:
+        options = ["Vista Resumen", "Estadísticas Avanzadas", "Percepcion e impacto mediático", "Informe de Scouting"]
+        option = st.multiselect("OPCIONES", options)
+        components.html(
+            """
+                
+            <iframe width="100%" height="710" frameborder="0" scrolling="no" src="https://www.sofascore.com/es/embed/jugador/karim-benzema/3306" id="sofa-player-embed-3306">
+            </iframe><script>
+            (function (el) {
+            window.addEventListener("message", (event) => {
+                if (event.origin.startsWith("https://www.sofascore")) {
+                if (el.id === event.data.id) {
+                    el.style.height = event.data.height + "px";
+                }
+                }
+            });
+            })(document.getElementById("sofa-player-embed-3306"));
+            </script>
+  
+            """,
+                height=450,
+            )
+        components.iframe("https://a486244ba19d8ac94c6d24c4b11c6a54.safeframe.googlesyndication.com/safeframe/1-0-40/html/container.html")
+        #resume_comp(player_selected)
+        
 ###################################################################
 def run():
     ###CARGAR DE DATOS
