@@ -1,0 +1,13 @@
+[
+    {
+        "Date": 1674425371000,
+        "Headline": "Athletic Bilbao 0-2 Real Madrid: Karim Benzema volley helps seal victory",
+        "Text": "Goals from Karim Benzema and Toni Kroos helped Real Madrid win at Athletic Bilbao to move back to within three points of league leaders Barcelona.\nBallon d'Or holder Benzema extended his run to six goals in five league matches with a sublime contorted volley.\nBenzema has provided much of Real's thrust since the turn of the year, after missing France's World Cup campaign through injury.\nBenzema's ninth league goal of the season was his 12th from 18 games in all competitions and gave Real a great platform to seal a 13th win from 17 matches in La Liga.\nAttempt missed. Karim Benzema (Real Madrid) header from the centre of the box misses to the left. Assisted by Toni Kroos with a cross following a set piece situation.",
+        "sentiment_score": {
+            "negative": 0.0151297245,
+            "neutral": 0.3676528335,
+            "positive": 0.6172174811
+        },
+        "sentiment": "positive"
+    }
+]
